@@ -48,7 +48,7 @@ end
 figure; 
 h = heatmap(MFR_all(1:79,:)'); 
 h.GridVisible = 'off';  
-h.Colormap = 'perula'; 
+colormap('parula'); 
 
 end 
 

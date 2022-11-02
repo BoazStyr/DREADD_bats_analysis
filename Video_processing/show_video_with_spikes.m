@@ -4,17 +4,17 @@
 %%%  time corrected spike times for a unit
 
 % params: 
-startTime =  60*60; % in sec 
-totalTime = 10; % in se
-downSampleFactor = 2; % how many frames to jump to save time and increase diff
+startTime =  60*40+12; % in sec 
+totalTime = 30; % in se
+downSampleFactor = 10; % how many frames to jump to save time and increase diff
 SpikeTimesSec_all  = SpikeData.global_SpikeTimes_Sec_all; 
 
-%create color for each unit
-for ColorNum = 1:length(SpikeTimesSec_all)
-
-Unit_Colors{ColorNum} = [rand rand rand]; 
-
-end 
+% %create color for each unit
+% for ColorNum = 1:length(SpikeTimesSec_all)
+% 
+% Unit_Colors{ColorNum} = [rand rand rand]; 
+% 
+% end 
 
  close all; 
  
@@ -23,9 +23,9 @@ set(gcf, 'Color','w','Position',[86 430 1720 831]);
 %%%%%%% now run thru the frames %%%%
 
 
-% writerObj = VideoWriter('SideVidAndSpikes20220930_0.5speed.avi');
-% writerObj.FrameRate = 30; 
-% open(writerObj);
+writerObj = VideoWriter('SideVidAndSpikes20220930_DCZ.avi');
+writerObj.FrameRate = 10; 
+open(writerObj);
 
 v.CurrentTime = startTime; 
 counter = 2;
@@ -43,19 +43,19 @@ while hasFrame(v)
         for unit = 1:length(SpikeTimesSec_all)
 
                 hold on;
-                plot(850-(unit*65), 50,'*','Color',Unit_Colors{unit},'MarkerSize',20); % put the unit color for ref on the image
+                plot(800-(unit*65), 50,'*','Color',Unit_Colors{unit},'MarkerSize',20); % put the unit color for ref on the image
   
                 SpikeTimesSec = SpikeTimesSec_all{unit}; 
                 SpikesinBin = SpikeTimesSec(SpikeTimesSec>= SpikeBinStart & SpikeTimesSec <= SpikeBinend); 
     
             if ~isempty(SpikesinBin) 
                 hold on;
-                plot(850-(unit*65), 50,'o','Color','w','MarkerFaceColor',Unit_Colors{unit},'MarkerSize',10+10*length(SpikesinBin)); 
+                plot(800-(unit*65), 50,'o','Color','w','MarkerFaceColor',Unit_Colors{unit},'MarkerSize',10+10*length(SpikesinBin)); 
                 hold off; 
             end 
         end    
-%         frame = getframe; 
-%         writeVideo(writerObj, frame);
+        frame = getframe; 
+        writeVideo(writerObj, frame);
 
         %pause(0.01)
         %disp(['time: ',num2str(v.CurrentTime)])

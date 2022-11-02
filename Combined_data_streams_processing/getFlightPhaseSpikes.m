@@ -1,18 +1,23 @@
-
+function  [SpikeMatrixAll,SpikesPerFlight] = getFlightPhaseSpikes(SpikeData,flightPaths,showPlot,trajNum)
 % This script compares the spiking activity along a trajectory before and
 % after DCZ. 
 
 
 
-% user input:
-trajNum = 2; 
+% user input examples:
+%trajNum = 2; 
 postTime = 0 ; %time to show after landing
-subplotRaw = 2;
-subplotClom = 4; 
 
 
 
+DCZf = []; 
+
+
+if showPlot == true
 figure; set(gcf,'Color','w')
+tiledlayout('flow')
+end 
+
 for unitNum = 1:length(SpikeData.global_SpikeTimes_Sec_all) 
 
 
@@ -51,25 +56,31 @@ for fnum = 1:length(trajIdx) % we go flight by flight for this traj
  end
 
 % now we insert NaN to the row that seperates the control from DCZ flights 
+if ~isempty(DCZf)
 DCZf = find(DCZf,1); 
 SpikeMatrix = [SpikeMatrix(1:DCZf-1,:);nan(1,100);SpikeMatrix(DCZf:end,:)]; 
 DCZf = []; 
+else
+    disp('no flights for this traj after DCZ'); 
+end 
 
-
-subplot(subplotRaw,subplotClom,unitNum) % change size according to number of units
+if showPlot == true
+nexttile; 
 h = heatmap(SpikeMatrix); 
 grid off
 h.XDisplayLabels = nan(1,100); 
 h.YDisplayLabels = nan(1,fnum+1);
 colormap('parula'); 
 title(['Unit: ',num2str(unitNum)])
+end 
 
-end         
+SpikeMatrixAll{unitNum} = SpikeMatrix;
+end  
+if showPlot == true
 sgtitle(['date: ',num2str(SpikeData.date),' Activity during traj: ',num2str(trajNum)])
-
 figure; 
 plot(SpikesPerFlight','LineWidth',2)
-        
+end         
 
 
 

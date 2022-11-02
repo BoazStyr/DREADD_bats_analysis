@@ -1,19 +1,20 @@
 
+function [SpikeMatrixAll,SpikesPerFlight] = getLandingPhaseSpikes(SpikeData,flightPaths,trajNum,preTime,postTime,showPlot)
 % This script compares the spiking activity after lading  before and
 % after DCZ. 
 
 
 
 % user input:
-trajNum = 2; 
-postTime = 25; % time to show after landing in sec
-preTime = 0; % time before landing to show in sec 
-subplotRaw = 2;
-subplotClom = 4; 
+%trajNum = 2; 
+%postTime = 10; % time to show after landing in sec
+%preTime = 0; % time before landing to show in sec 
+ 
 
 
 
 figure; set(gcf,'Color','w')
+tiledlayout('flow')
 for unitNum = 1:length(SpikeData.global_SpikeTimes_Sec_all) 
 
 
@@ -54,7 +55,10 @@ for fnum = 1:length(trajIdx) % we go flight by flight for this traj
 DCZf = find(DCZf,1); 
 SpikeMatrix = [SpikeMatrix(1:DCZf-1,:);nan(1,100);SpikeMatrix(DCZf:end,:)]; 
 DCZf = []; 
-subplot(subplotRaw,subplotClom,unitNum) % change size according to number of units
+
+if showPlot == true
+
+nexttile
 h = heatmap(SpikeMatrix); 
 grid off
 h.XDisplayLabels = nan(1,100); 
@@ -62,11 +66,17 @@ h.YDisplayLabels = nan(1,fnum+1);
 colormap('parula'); 
 title(['unit # ',num2str(unitNum)]); 
 
-end         
+end 
+
+SpikeMatrixAll{unitNum} = SpikeMatrix; 
+end 
+if showPlot == true
 sgtitle(['date:',num2str(SpikeData.date),'activty: ',num2str(postTime) ,' sec post landing'])
-figure; 
+
+figure; set(gcf,'Color','w')
 plot(SpikesPerFlight','LineWidth',2)
-        
+title('Spikes per reward period'); xlabel('reward #'); ylabel('# of spikes')
+end         
 
 
 
