@@ -70,7 +70,7 @@ h = heatmap(SpikeMatrix);
 grid off
 h.XDisplayLabels = nan(1,100); 
 h.YDisplayLabels = nan(1,fnum+1);
-colormap('parula'); 
+colormap jet; 
 title(['Unit: ',num2str(unitNum)])
 end 
 
