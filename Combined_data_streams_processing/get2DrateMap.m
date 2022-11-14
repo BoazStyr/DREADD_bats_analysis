@@ -5,8 +5,8 @@
 
 %close all;  
 %=== user inputs:
-bin_size = 0.05; 
-min_time = 0.06; 
+bin_size = 0.08; 
+min_time = 0.05; 
 minAfterDCZ = 10; % how long after DCZ to pull flights in min (10 min to full effec is noraml); 
 
 %=== Parameters
@@ -20,7 +20,7 @@ sigma = sigma_m/bin_size;               % Sigma of the smoothing Gaussian kernel
 
 figure; 
 tiledlayout('flow'); 
-set(gcf,'Color','w','Position',[205 78 959 1294]); 
+set(gcf,'Color','w','Position',[244 78 1940 1294]); 
 
 
 
@@ -99,7 +99,7 @@ nnb_kernel = ones(3,3);
     
     % plot 
     nexttile 
-    plot(pos_spk(:,1),pos_spk(:,2),'*k','MarkerSize',5);
+    plot(pos_spk(:,1),pos_spk(:,2),'ok','MarkerSize',1);
     xlim([-2.9 2.9]); ylim([-2.6 2.6]);  axis off
      if treat == 1 
     title(['unit#:',num2str(unitNum),' BL '])

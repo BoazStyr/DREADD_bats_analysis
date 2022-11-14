@@ -6,7 +6,7 @@
 
 
 % get the time to start looking at SPF 
-timeAfterDCZ = 15 ; % in min 
+timeAfterDCZ = 5 ; % in min 
 SPF_DCZ_start = SpikeData.global_DCZ_ts_Sec+60*timeAfterDCZ; % take 15min after DCZ only 
 traj = 2; 
 % find the # of flights after DCZ you want to calcaulate; 
@@ -34,7 +34,7 @@ nexttile
 histogram(SPF_beforeDCZ(unitNum,:),'BinWidth',min(SPF_beforeDCZ(unitNum,:))/3+1,'FaceColor',[0.5 0.5 0.5],'Normalization','probability'); 
 hold on;
 histogram(SPF_afterDCZfullOnset(unitNum,:),'BinWidth',min(SPF_beforeDCZ(unitNum,:))/3+1,'FaceColor',[0.2 0.2 0.7],'Normalization','probability'); 
-%title(['unit#: ',num2str(unitNum)])
+title(['unit#: ',num2str(unitNum)])
 end
 
 
@@ -56,7 +56,7 @@ plot(ones(length(SPF_afterDCZfullOnset_normed))*2,SPF_afterDCZfullOnset_normed,'
 plot(2,mean(SPF_afterDCZfullOnset_normed),'ob',MarkerSize=10,MarkerFaceColor='b');
 
 xlim([0 3])
-%title(['unit#: ',num2str(unitNum)])
+title(['unit#: ',num2str(unitNum)])
 end
 
 

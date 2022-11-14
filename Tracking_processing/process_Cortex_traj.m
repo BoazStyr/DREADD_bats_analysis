@@ -1,4 +1,4 @@
-function [flightPaths,Flights] = process_Cortex_traj(CortexDir,date,batID)
+function [flightPaths,Flights,AllFlights] = process_Cortex_traj(CortexDir,date,batID)
 % This script processes the Cortex tracking data to get flightPaths and
 % other related data, and also give the global ts for the tracking data. 
 
